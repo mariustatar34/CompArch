@@ -118,7 +118,7 @@ begin
  
  process(result)
  begin
- if result=0 then leds<="10000000";
+ if result=to_unsigned(0,16) then leds<="10000000";
  else leds<="00000000";
  end if;
  end process;

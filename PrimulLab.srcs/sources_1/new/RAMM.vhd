@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 03/08/2026 01:21:44 PM
+-- Create Date: 03/19/2026 10:28:27 AM
 -- Design Name: 
--- Module Name: MPG - Behavioral
+-- Module Name: RAMM - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -21,7 +21,6 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -32,31 +31,18 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity MPG is
+entity RAMM is
     Port ( clk : in STD_LOGIC;
-           btn : in STD_LOGIC;
-           enable : out STD_LOGIC);
-end MPG;
+           we : in STD_LOGIC;
+           en : in STD_LOGIC;
+           addr : in STD_LOGIC;
+           di : in STD_LOGIC;
+           do : out STD_LOGIC);
+end RAMM;
 
-architecture Behavioral of MPG is
-
-signal counter:unsigned(15 downto 0):=(others=>'0');
-signal q1,q2,q3:std_logic:='0';
+architecture Behavioral of RAMM is
 
 begin
 
-process(clk)
-begin
- if rising_edge(clk) then
- counter<=counter+1;
- if counter="1111111111111111" then
- q1<=btn;
- 
- q2<=q1;
- q3<=q2;
- end if;
- end if;
-end process;
-enable<=q2 and not q3;
 
 end Behavioral;
