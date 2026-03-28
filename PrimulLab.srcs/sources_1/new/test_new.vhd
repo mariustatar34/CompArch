@@ -62,15 +62,22 @@ clk : in STD_LOGIC;
            );
 end component;
 
+component ROMM is
+Port(
+addr: in STD_LOGIC_VEctor(7 downto 0);
+clk:in std_logic;
+dout:out std_logic_vector(15 downto 0));
+end component;
 
 signal en:std_logic;
 --signal count16:unsigned(15 downto 0):=(others=>'0');
-signal op_sel:unsigned(1 downto 0):=(others=>'0');
-signal A:unsigned(15 downto 0);
-signal B:unsigned(15 downto 0);
-signal C:unsigned(15 downto 0);
-signal result:unsigned(15 downto 0);
-
+--signal op_sel:unsigned(1 downto 0):=(others=>'0');
+--signal A:unsigned(15 downto 0);
+--signal B:unsigned(15 downto 0);
+--signal C:unsigned(15 downto 0);
+--signal result:unsigned(15 downto 0);
+signal addr:unsigned(7 downto 0):=(others=>'0');
+signal rom_out:std_logic_vector(15 downto 0);
 
 begin
 
@@ -85,43 +92,49 @@ process(clk)
 begin
    if rising_edge(clk) then
    if en='1' then 
-   op_sel<=op_sel+1;
+  -- op_sel<=op_sel+1;
+  addr<=addr+1;
    end if;
    end if;
  end process;  
  
- A<=resize(unsigned(sw(3 downto 0)),16);
- B<=resize(unsigned(sw(7 downto 4)),16);
- C<=resize(unsigned(sw(7 downto 0)),16);
+ --A<=resize(unsigned(sw(3 downto 0)),16);
+ --B<=resize(unsigned(sw(7 downto 4)),16);
+ --C<=resize(unsigned(sw(7 downto 0)),16);
  
- process(op_sel,A,B,C)
- begin
-     case op_sel is
-         when "00"=>result<=A+B;
-         when "01"=>result<=A-B;
-         when "10"=>result<=C sll 2;
-         when "11"=>result<=C srl 2;
-         when others=>result<=(others =>'0');
- end case;
- end process;
+ rom_inst:ROMM
+ port map(
+ addr=>std_logic_vector(addr),
+ dout=>rom_out);
+ 
+ --process(op_sel,A,B,C)
+ --begin
+ --    case op_sel is
+   --      when "00"=>result<=A+B;
+     --    when "01"=>result<=A-B;
+       --  when "10"=>result<=C sll 2;
+       --  when "11"=>result<=C srl 2;
+       --  when others=>result<=(others =>'0');
+ --end case;
+ --end process;
  
  ssd_inst: SSD
  port map(
  clk=>clk,
- digit0=>std_logic_vector(result(3 downto 0)),
- digit1=>std_logic_vector(result(7 downto 4)),
- digit2=>std_logic_vector(result(11 downto 8)),
- digit3=>std_logic_vector(result(15 downto 12)),
+ digit0=>rom_out(3 downto 0),
+ digit1=>rom_out(7 downto 4),
+ digit2=>rom_out(11 downto 8),
+ digit3=>rom_out(15 downto 12),
  cat=>cat,
  an=>an
  );
  
- process(result)
- begin
- if result=to_unsigned(0,16) then leds<="10000000";
- else leds<="00000000";
- end if;
- end process;
+ --process(result)
+ --begin
+ --if result=to_unsigned(0,16) then leds<="10000000";
+ --else leds<="00000000";
+ --end if;
+ --end process;
  
  
 --process(count)
@@ -138,5 +151,5 @@ begin
 --when others=>leds<="00000000";
 --end case;
 --end process;
-
+leds<=(others =>'0');
 end Behavioral;

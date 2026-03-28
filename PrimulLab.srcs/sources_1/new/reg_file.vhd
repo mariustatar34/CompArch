@@ -21,7 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
+use ieee.numeric_std.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -44,7 +44,19 @@ end reg_file;
 
 architecture Behavioral of reg_file is
 
+type reg_array is array(0 to 15) of std_logic_vector(15 downto 0);
+signal reg_mem:reg_array:=(others => (others=>'0'));
+
 begin
 
+process(clk)
+begin
+if rising_edge(clk) then 
+     if wen='1' then reg_mem(to_integer(unsigned(wa)))<=wd;
+     end if;
+end if;
+end process;
+rd1<=reg_mem(to_integer(unsigned(ra1)));
+rd2<=reg_mem(to_integer(unsigned(ra2)));
 
 end Behavioral;
