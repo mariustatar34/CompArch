@@ -63,12 +63,12 @@ clk : in STD_LOGIC;
            );
 end component;
 
-component ROMM is
-Port(
-addr: in STD_LOGIC_VEctor(7 downto 0);
-clk:in std_logic;
-dout:out std_logic_vector(15 downto 0));
-end component;
+--component ROMM is
+--Port(
+--addr: in STD_LOGIC_VEctor(7 downto 0);
+--clk:in std_logic;
+--dout:out std_logic_vector(15 downto 0));
+--end component;
 
 signal en:std_logic;
 --signal count16:unsigned(15 downto 0):=(others=>'0');
@@ -77,10 +77,30 @@ signal en:std_logic;
 --signal B:unsigned(15 downto 0);
 --signal C:unsigned(15 downto 0);
 --signal result:unsigned(15 downto 0);
-signal addr:unsigned(7 downto 0):=(others=>'0');
-signal rom_out:std_logic_vector(15 downto 0);
+--signal addr:unsigned(7 downto 0):=(others=>'0');
+--signal rom_out:std_logic_vector(15 downto 0);
+signal instr:std_logic_vector(15 downto 0);
+signal pc_plus_1:std_logic_vector(15 downto 0);
+signal display_data:std_logic_vector(15 downto 0);
+
+
+
+
 
 begin
+
+ifu_inst : entity work.IFU
+port map(
+    clk           => clk,
+    reset           => '0',         -- sau buton separat dac? vrei
+    en            => en,
+    Jump          => sw(0),
+    PCSrc         => sw(1),
+    BranchAddress => x"0003",     -- adres? de test
+    JumpAddress   => x"0000",     -- reset/jump la început
+    Instruction   => instr,
+    PC_Plus_1       => pc_plus_1
+);
 
 mpg_inst: MPG 
 port map(
@@ -89,25 +109,25 @@ btn=>btn,
 enable=>en
 );
 
-process(clk)
-begin
-   if rising_edge(clk) then
-   if en='1' then 
+--process(clk)
+--begin
+ --  if rising_edge(clk) then
+  -- if en='1' then 
   -- op_sel<=op_sel+1;
-  addr<=addr+1;
-   end if;
-   end if;
- end process;  
+  --addr<=addr+1;
+   --end if;
+   --end if;
+ --end process;  
  
  --A<=resize(unsigned(sw(3 downto 0)),16);
  --B<=resize(unsigned(sw(7 downto 4)),16);
  --C<=resize(unsigned(sw(7 downto 0)),16);
  
- rom_inst:ROMM
- port map(
- addr=>std_logic_vector(addr),
- clk=>clk,
- dout=>rom_out);
+ --rom_inst:ROMM
+ --port map(
+ --addr=>std_logic_vector(addr),
+ --clk=>clk,
+ --dout=>rom_out);
  
  --process(op_sel,A,B,C)
  --begin
@@ -120,13 +140,17 @@ begin
  --end case;
  --end process;
  
+ 
+ 
+ 
+ 
  ssd_inst: SSD
  port map(
  clk=>clk,
- digit0=>rom_out(3 downto 0),
- digit1=>rom_out(7 downto 4),
- digit2=>rom_out(11 downto 8),
- digit3=>rom_out(15 downto 12),
+digit0=>display_data(3 downto 0),
+digit1=>display_data(7 downto 4),
+digit2=>display_data(11 downto 8),
+digit3=>display_data(15 downto 12),
  cat=>cat,
  an=>an
  );
@@ -153,5 +177,8 @@ begin
 --when others=>leds<="00000000";
 --end case;
 --end process;
+
+display_data <= instr when sw(7) = '0' else pc_plus_1;
+
 leds<=(others =>'0');
 end Behavioral;
