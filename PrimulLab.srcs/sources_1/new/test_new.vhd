@@ -41,6 +41,7 @@ entity test_new is
            an:out std_logic_vector(3 downto 0));
 end test_new;
 
+
 architecture Behavioral of test_new is
 
 component MPG is 
@@ -105,6 +106,7 @@ begin
  rom_inst:ROMM
  port map(
  addr=>std_logic_vector(addr),
+ clk=>clk,
  dout=>rom_out);
  
  --process(op_sel,A,B,C)
