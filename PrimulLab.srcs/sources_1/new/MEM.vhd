@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 03/19/2026 11:09:44 AM
+-- Create Date: 04/16/2026 10:28:36 AM
 -- Design Name: 
--- Module Name: reg_file - Behavioral
+-- Module Name: MEM - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,33 +31,39 @@ use ieee.numeric_std.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity reg_file is
+entity MEM is
     Port ( clk : in STD_LOGIC;
-           ra1 : in STD_LOGIC_VECTOR (2 downto 0);
-           ra2 : in STD_LOGIC_VECTOR (2 downto 0);
-           wa : in STD_LOGIC_VECTOR (2 downto 0);
-           wd : in STD_LOGIC_VECTOR (15 downto 0);
-           wen : in STD_LOGIC;
-           rd1 : out STD_LOGIC_VECTOR (15 downto 0);
-           rd2 : out STD_LOGIC_VECTOR (15 downto 0));
-end reg_file;
+    ALURes_in: in std_logic_vector(15 downto 0);
+    RD2: in std_logic_vector(15 downto 0);
+    MemWrite: in std_logic;
+    
+    MemData:out std_logic_vector(15 downto 0);
+    ALURes_out: out std_logic_vector(15 downto 0)
+    
+    );
+end MEM;
 
-architecture Behavioral of reg_file is
+architecture Behavioral of MEM is
 
-type reg_array is array(0 to 7) of std_logic_vector(15 downto 0);
-signal reg_mem:reg_array:=(others => (others=>'0'));
+type ram_type is array(0 to 255) of std_logic_vector(15 downto 0);
+signal RAM: ram_type:=(others=>(others=>'0'));
 
 begin
 
 process(clk)
 begin
-if rising_edge(clk) then 
-     if wen='1' then reg_mem(to_integer(unsigned(wa)))<=wd;
+
+if rising_edge(clk) then
+    if MemWrite='1' then
+        RAM(to_integer(unsigned(ALURes_in(7 downto 0))))<=RD2;
      end if;
-end if;
+ end if;
 
 end process;
-rd1<=reg_mem(to_integer(unsigned(ra1)));
-rd2<=reg_mem(to_integer(unsigned(ra2)));
+
+
+MemData<=RAM(to_integer(unsigned(ALURes_in(7 downto 0))));
+
+ALURes_out<=ALURes_in;
 
 end Behavioral;

@@ -38,17 +38,17 @@ reset: in std_logic;
 en:in std_logic;
 PCSrc:in std_logic;
 Jump:in std_logic;
-BranchAddress:in std_logic_vector(31 downto 0);
-JumpAddress:in std_logic_vector(31 downto 0);
+BranchAddress:in std_logic_vector(15 downto 0);
+JumpAddress:in std_logic_vector(15 downto 0);
 
-Instruction:out std_logic_vector(31 downto 0);
-PC_plus_1:out std_logic_vector(31 downto 0)
+Instruction:out std_logic_vector(15 downto 0);
+PC_plus_1:out std_logic_vector(15 downto 0)
 
  );
 end IFU;
 
 architecture Behavioral of IFU is
-signal PC_reg:std_logic_vector(31 downto 0):=(others=>'0');
+signal PC_reg:std_logic_vector(15 downto 0):=(others=>'0');
 signal PC_inc:std_logic_vector(15 downto 0);
 signal next_pc:std_logic_vector(15 downto 0);
 signal branch_mux:std_logic_vector(15 downto 0);
@@ -56,7 +56,7 @@ signal branch_mux:std_logic_vector(15 downto 0);
 
 
 
-type rom_type is array(0 to 255) of std_logic_vector(31 downto 0);
+type rom_type is array(0 to 255) of std_logic_vector(15 downto 0);
 signal ROM: rom_type :=(
 0=>B"000_011_001_001_0_000", --add $1,$3,$1
 1=>B"000_001_001_010_0_001", --sub $2,$1,$1

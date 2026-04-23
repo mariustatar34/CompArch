@@ -51,20 +51,19 @@ end ID;
 
 architecture Behavioral of ID is
 
-signal wa_sig: std_logic_vector(3 downto 0);
-signal ra1_sig: std_logic_vector(3 downto 0);
-signal ra2_sig:std_logic_vector(3 downto 0);
+signal wa_sig: std_logic_vector(2 downto 0);
+signal ra1_sig: std_logic_vector(2 downto 0);
+signal ra2_sig:std_logic_vector(2 downto 0);
 
 
 begin
 
 --MUXul pt write address.
-wa_sig<='0' & Instr(6 downto 4) when RegDst='1' else 
-'0' & Instr(9 downto 7);
+wa_sig<=Instr(6 downto 4) when RegDst='1' else Instr(9 downto 7);
 
 --rs si rt
-ra1_sig<='0' & Instr(12 downto 10);
-ra2_sig<='0' & Instr(9 downto 7);
+ra1_sig<=Instr(12 downto 10);
+ra2_sig<=Instr(9 downto 7);
 
 --Reg file ul
  rf_inst : entity work.reg_file

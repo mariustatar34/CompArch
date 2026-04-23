@@ -34,8 +34,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity test_new is
     Port ( clk : in STD_LOGIC;
-           btn : in STD_LOGIC;
-           sw:in std_logic_vector(7 downto 0);
+           btn : in STD_LOGIC;--enable
+           sw:in std_logic_vector(7 downto 0); -- sw(4)=reset, sw(7:5)=SSD select, sw(0)=LED select
            leds: out std_logic_vector(7 downto 0);
            cat:out std_logic_vector(6 downto 0);
            an:out std_logic_vector(3 downto 0));
@@ -70,6 +70,7 @@ end component;
 --dout:out std_logic_vector(15 downto 0));
 --end component;
 
+--MPG
 signal en:std_logic;
 --signal count16:unsigned(15 downto 0):=(others=>'0');
 --signal op_sel:unsigned(1 downto 0):=(others=>'0');
@@ -79,27 +80,64 @@ signal en:std_logic;
 --signal result:unsigned(15 downto 0);
 --signal addr:unsigned(7 downto 0):=(others=>'0');
 --signal rom_out:std_logic_vector(15 downto 0);
+
+
+--IF
 signal instr:std_logic_vector(15 downto 0);
 signal pc_plus_1:std_logic_vector(15 downto 0);
+signal jump_addr:std_logic_vector(15 downto 0);
+signal branch_addr:std_logic_vector(15 downto 0);
+signal pcsrc:std_logic;
+
+
+--Control
+signal RegDst_ctrl:std_logic;
+signal ExtOp_ctrl:std_logic;
+signal ALUSrc_ctrl:std_logic;
+signal Branch_ctrl:std_logic;
+signal Jump_ctrl:std_logic;
+signal MemWrite_ctrl:std_logic;
+signal MemtoReg_ctrl:std_logic;
+signal RegWrite_ctrl:std_logic;
+signal ALUOp_ctrl:std_logic_vector(2 downto 0);
+
+--control signals
+signal RegWrite_final:std_logic;
+signal MemWrite_final:std_logic;
+
+--ID
+signal RD1:std_logic_vector(15 downto 0);
+signal RD2:std_logic_vector(15 downto 0);
+signal Ext_Imm:std_logic_vector(15 downto 0);
+signal func:std_logic_vector(2 downto 0);
+signal sa:std_logic;
+signal WD:std_logic_vector(15 downto 0);
+
+--EX
+signal ALURes:std_logic_vector(15 downto 0);
+signal Zero:std_logic;
+
+--MEM
+signal MemData:std_logic_vector(15 downto 0);
+signal ALURes_MEM:std_logic_vector(15 downto 0);
+
+--ssd
 signal display_data:std_logic_vector(15 downto 0);
-
-
-
-
 
 begin
 
+--IF unit
 ifu_inst : entity work.IFU
 port map(
     clk           => clk,
-    reset           => '0',         -- sau buton separat dac? vrei
+    reset           => sw(4),         -- folosim sw(4) xa reset
     en            => en,
-    Jump          => sw(0),
-    PCSrc         => sw(1),
-    BranchAddress => x"0003",     -- adres? de test
-    JumpAddress   => x"0000",     -- reset/jump la început
-    Instruction   => instr,
-    PC_Plus_1       => pc_plus_1
+   PCSrc=>pcsrc,
+   Jump=>Jump_ctrl,
+   BranchAddress=>branch_addr,
+   JumpAddress=>jump_addr,
+   Instruction=>instr,
+   PC_plus_1=>pc_plus_1
 );
 
 mpg_inst: MPG 
@@ -108,6 +146,79 @@ clk=>clk,
 btn=>btn,
 enable=>en
 );
+
+--Main vontrol unit
+ctrl_inst: entity work.ControlUnit
+port map(
+opcode=>instr(15 downto 13),
+RegDst=>RegDst_ctrl,
+ExtOp=>ExtOp_ctrl,
+ALUSrc=>ALUSrc_ctrl,
+Branch=>Branch_ctrl,
+Jump=>Jump_ctrl,
+ALUOp=>ALUOp_ctrl,
+MemWrite=>MemWrite_ctrl,
+MemtoReg=>MemtoReg_ctrl,
+RegWrite=>RegWrite_ctrl
+);
+
+--Validare cu mpg
+RegWrite_final<=RegWrite_ctrl and en;
+MemWrite_final<=MemWrite_ctrl and en;
+
+--jump addr computation. opcode(15:13)+addr(12:0)
+jump_addr<="000"&instr(12 downto 0);
+
+--branch decizion
+pcsrc<=Branch_ctrl and Zero;
+
+
+--ID unit
+id_inst:entity work.ID
+port map(
+clk=>clk,
+Instr=>instr,
+WD=>WD,
+RegWrite=>RegWrite_final,
+RegDst=>RegDst_ctrl,
+ExtOp=>ExtOp_ctrl,
+RD1=>RD1,
+RD2=>RD2,
+EXT_Imm=>Ext_Imm,
+func=>func,
+sa=>sa
+);
+
+
+--EX unitu
+ex_inst:entity work.EX
+port map(
+PCPlus1=>pc_plus_1,
+RD1=>RD1,
+RD2=>RD2,
+ExtImm=>Ext_Imm,
+func=>func,
+sa=>sa,
+ALUSrc=>ALUSrc_ctrl,
+ALUOp=>ALUOp_ctrl,
+ALURes=>ALURes,
+Zero=>Zero,
+BranchAddr=>branch_addr
+);
+
+--MEM unit
+mem_inst:entity work.MEM
+port map(
+clk=>clk,
+ALURes_in=>ALURes,
+RD2=>RD2,
+MemWrite=>MemWrite_final,
+MemData=>MemData,
+ALURes_out=>ALURes_MEM
+);
+
+--WB MUX
+WD<=MemData when MemtoReg_ctrl='1' else ALURes_MEM;
 
 --process(clk)
 --begin
@@ -141,9 +252,19 @@ enable=>en
  --end process;
  
  
+ --ssd display select
+ with sw (7 downto 5) select
+ display_data<=
+        instr when "000",
+        pc_plus_1 when "001",
+        RD1 when "010",
+        RD2 when "011",
+        Ext_Imm when "100",
+        ALURes when "101",
+        MemData when "110",
+        WD when others;
  
- 
- 
+ --ssd instance
  ssd_inst: SSD
  port map(
  clk=>clk,
@@ -178,7 +299,24 @@ digit3=>display_data(15 downto 12),
 --end case;
 --end process;
 
-display_data <= instr when sw(7) = '0' else pc_plus_1;
 
-leds<=(others =>'0');
+--LEDS: sw(0)=0 afiseaza control signals, daca e 1 afiseaza ALUOp pe leduri
+leds<=(7=>RegWrite_ctrl,
+       6=>MemtoReg_ctrl,
+       5=>MemWrite_ctrl,
+       4=>Jump_ctrl,
+       3=>Branch_ctrl,
+       2=>ALUSrc_ctrl,
+       1=>ExtOp_ctrl,
+       0=>RegDst_ctrl) when sw(0)='0'
+       else
+       "00000" & ALUOp_ctrl;
+
+
+
+
+
+--display_data <= instr when sw(7) = '0' else pc_plus_1;
+
+--leds<=(others =>'0');
 end Behavioral;
