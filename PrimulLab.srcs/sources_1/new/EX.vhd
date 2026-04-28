@@ -39,7 +39,7 @@ entity EX is
            func:in std_logic_vector(2 downto 0);
            sa:in std_logic;
            ALUSrc:in std_logic;
-           ALUOp:in std_logic_vector(1 downto 0);
+           ALUOp:in std_logic_vector(2 downto 0);
            
            ALURes:out std_logic_vector(15 downto 0);
            Zero:out std_logic;
@@ -93,7 +93,7 @@ when "011"=>--srl
         ALURes_int<=ALU_in2;
     end if;
 when "100"=>--and
-    ALURes_int<=RD1 or ALU_in2;
+    ALURes_int<=RD1 and ALU_in2;
 when "101"=>--or
     ALURes_int<=RD1 or ALU_in2;
 when "110"=>--xor

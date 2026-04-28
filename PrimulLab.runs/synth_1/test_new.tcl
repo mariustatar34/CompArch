@@ -29,6 +29,12 @@ set_property target_language VHDL [current_project]
 set_property ip_output_repo c:/Users/Marius_PC/PrimulLab/PrimulLab.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_vhdl -library xil_defaultlib {
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ControlUnit.vhd
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/EX.vhd
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/reg_file.vhd
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ID.vhd
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/IFU.vhd
+  C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MEM.vhd
   C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd
   C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd
   C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd

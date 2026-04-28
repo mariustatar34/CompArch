@@ -14,37 +14,60 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 5912 
+INFO: Helper process launched with PID 27264 
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 362.074 ; gain = 100.805
+Starting Synthesize : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 362.203 ; gain = 100.867
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'test_new' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:42]
-INFO: [Synth 8-3491] module 'MPG' declared at 'C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd:35' bound to instance 'mpg_inst' of component 'MPG' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:69]
+INFO: [Synth 8-638] synthesizing module 'test_new' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:45]
+INFO: [Synth 8-638] synthesizing module 'IFU' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/IFU.vhd:50]
+INFO: [Synth 8-256] done synthesizing module 'IFU' (1#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/IFU.vhd:50]
+INFO: [Synth 8-3491] module 'MPG' declared at 'C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd:35' bound to instance 'mpg_inst' of component 'MPG' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:143]
 INFO: [Synth 8-638] synthesizing module 'MPG' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd:41]
-INFO: [Synth 8-256] done synthesizing module 'MPG' (1#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd:41]
-INFO: [Synth 8-3491] module 'SSD' declared at 'C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:34' bound to instance 'ssd_inst' of component 'SSD' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:85]
+INFO: [Synth 8-256] done synthesizing module 'MPG' (2#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MPG.vhd:41]
+INFO: [Synth 8-638] synthesizing module 'ControlUnit' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ControlUnit.vhd:47]
+INFO: [Synth 8-226] default block is never used [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ControlUnit.vhd:63]
+INFO: [Synth 8-256] done synthesizing module 'ControlUnit' (3#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ControlUnit.vhd:47]
+INFO: [Synth 8-638] synthesizing module 'ID' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ID.vhd:52]
+INFO: [Synth 8-638] synthesizing module 'reg_file' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/reg_file.vhd:45]
+INFO: [Synth 8-256] done synthesizing module 'reg_file' (4#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/reg_file.vhd:45]
+INFO: [Synth 8-256] done synthesizing module 'ID' (5#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/ID.vhd:52]
+INFO: [Synth 8-638] synthesizing module 'EX' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/EX.vhd:51]
+INFO: [Synth 8-226] default block is never used [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/EX.vhd:78]
+INFO: [Synth 8-256] done synthesizing module 'EX' (6#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/EX.vhd:51]
+INFO: [Synth 8-638] synthesizing module 'MEM' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MEM.vhd:46]
+INFO: [Synth 8-256] done synthesizing module 'MEM' (7#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/MEM.vhd:46]
+INFO: [Synth 8-3491] module 'SSD' declared at 'C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:34' bound to instance 'ssd_inst' of component 'SSD' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:268]
 INFO: [Synth 8-638] synthesizing module 'SSD' [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:44]
 INFO: [Synth 8-226] default block is never used [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:63]
 INFO: [Synth 8-226] default block is never used [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:74]
 INFO: [Synth 8-226] default block is never used [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:85]
-INFO: [Synth 8-256] done synthesizing module 'SSD' (2#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:44]
-INFO: [Synth 8-256] done synthesizing module 'test_new' (3#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:42]
+INFO: [Synth 8-256] done synthesizing module 'SSD' (8#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/SSD.vhd:44]
+INFO: [Synth 8-256] done synthesizing module 'test_new' (9#1) [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd:45]
+WARNING: [Synth 8-3331] design ID has unconnected port Instr[15]
+WARNING: [Synth 8-3331] design ID has unconnected port Instr[14]
+WARNING: [Synth 8-3331] design ID has unconnected port Instr[13]
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[3]
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[2]
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[1]
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 418.059 ; gain = 156.789
+Finished Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 418.898 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 418.059 ; gain = 156.789
+Finished Constraint Validation : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 418.898 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k70tfbv676-1
----------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 418.059 ; gain = 156.789
----------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7k70tfbv676-1
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 418.059 ; gain = 156.789
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 418.898 ; gain = 157.562
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "ROM" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element PC_reg_reg_rep was removed.  [C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/IFU.vhd:82]
+INFO: [Synth 8-5546] ROM "Zero" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 418.898 ; gain = 157.562
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -57,10 +80,24 @@ No constraint files found.
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     16 Bit       Adders := 3     
+	   3 Input     16 Bit       Adders := 1     
++---XORs : 
+	   2 Input     16 Bit         XORs := 1     
 +---Registers : 
+	               16 Bit    Registers := 1     
 	                1 Bit    Registers := 3     
 +---Muxes : 
+	 257 Input     16 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 8     
+	   2 Input      8 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 2     
+	   8 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   6 Input      3 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 8     
+	   2 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -68,10 +105,45 @@ Finished RTL Component Statistics
 Start RTL Hierarchical Component Statistics 
 ---------------------------------------------------------------------------------
 Hierarchical RTL Component report 
+Module test_new 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 1     
+Module IFU 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     16 Bit       Adders := 1     
++---Registers : 
+	               16 Bit    Registers := 1     
++---Muxes : 
+	 257 Input     16 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 2     
 Module MPG 
 Detailed RTL Component Info : 
 +---Registers : 
 	                1 Bit    Registers := 3     
+Module ControlUnit 
+Detailed RTL Component Info : 
++---Muxes : 
+	   8 Input      3 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 8     
+Module ID 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 1     
+Module EX 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     16 Bit       Adders := 2     
+	   3 Input     16 Bit       Adders := 1     
++---XORs : 
+	   2 Input     16 Bit         XORs := 1     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 3     
+	   6 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
 Module SSD 
 Detailed RTL Component Info : 
 +---Muxes : 
@@ -93,8 +165,28 @@ No constraint files found.
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5546] ROM "ex_inst/Zero" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[3]
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[2]
+WARNING: [Synth 8-3331] design test_new has unconnected port sw[1]
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 599.043 ; gain = 337.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++------------+-----------------------------+-----------+----------------------+------------------+
+|Module Name | RTL Object                  | Inference | Size (Depth x Width) | Primitives       | 
++------------+-----------------------------+-----------+----------------------+------------------+
+|test_new    | mem_inst/RAM_reg            | Implied   | 256 x 16             | RAM256X1S x 16   | 
+|test_new    | id_inst/rf_inst/reg_mem_reg | Implied   | 8 x 16               | RAM32M x 6       | 
++------------+-----------------------------+-----------+----------------------+------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -107,7 +199,22 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Timing Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 599.043 ; gain = 337.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping  Report
++------------+-----------------------------+-----------+----------------------+------------------+
+|Module Name | RTL Object                  | Inference | Size (Depth x Width) | Primitives       | 
++------------+-----------------------------+-----------+----------------------+------------------+
+|test_new    | mem_inst/RAM_reg            | Implied   | 256 x 16             | RAM256X1S x 16   | 
+|test_new    | id_inst/rf_inst/reg_mem_reg | Implied   | 8 x 16               | RAM32M x 6       | 
++------------+-----------------------------+-----------+----------------------+------------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -119,7 +226,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Technology Mapping : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -143,7 +250,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished IO Insertion : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -156,7 +263,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -168,25 +275,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -199,49 +306,61 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+-------+------+
-|      |Cell   |Count |
-+------+-------+------+
-|1     |BUFG   |     1|
-|2     |CARRY4 |     8|
-|3     |LUT1   |     2|
-|4     |LUT2   |     6|
-|5     |LUT4   |    10|
-|6     |LUT6   |     5|
-|7     |FDRE   |    35|
-|8     |IBUF   |     2|
-|9     |OBUF   |    11|
-+------+-------+------+
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     1|
+|2     |CARRY4    |    22|
+|3     |LUT1      |     2|
+|4     |LUT2      |    23|
+|5     |LUT3      |    49|
+|6     |LUT4      |    28|
+|7     |LUT5      |    44|
+|8     |LUT6      |   115|
+|9     |RAM256X1S |    16|
+|10    |RAM32M    |     6|
+|11    |FDCE      |    24|
+|12    |FDRE      |    19|
+|13    |IBUF      |     7|
+|14    |OBUF      |    19|
++------+----------+------+
 
 Report Instance Areas: 
-+------+-----------+-------+------+
-|      |Instance   |Module |Cells |
-+------+-----------+-------+------+
-|1     |top        |       |    80|
-|2     |  mpg_inst |MPG    |    45|
-+------+-----------+-------+------+
++------+------------+---------+------+
+|      |Instance    |Module   |Cells |
++------+------------+---------+------+
+|1     |top         |         |   375|
+|2     |  ex_inst   |EX       |    30|
+|3     |  id_inst   |ID       |    45|
+|4     |    rf_inst |reg_file |    45|
+|5     |  ifu_inst  |IFU      |   212|
+|6     |  mem_inst  |MEM      |    18|
+|7     |  mpg_inst  |MPG      |    43|
++------+------------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
-Synthesis Optimization Complete : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 556.973 ; gain = 295.703
+Synthesis finished with 0 errors, 0 critical warnings and 10 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
+Synthesis Optimization Complete : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 599.043 ; gain = 337.707
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 8 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 44 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 654.910 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 662.723 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-No Unisim elements were transformed.
+  A total of 22 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7, MUXF7, MUXF8, RAMS64E, RAMS64E, RAMS64E, RAMS64E): 16 instances
+  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 6 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-20 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+37 Infos, 10 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 654.910 ; gain = 401.922
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 654.910 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 662.723 ; gain = 409.344
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 662.723 ; gain = 0.000
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Marius_PC/PrimulLab/PrimulLab.runs/synth_1/test_new.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file test_new_utilization_synth.rpt -pb test_new_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue Mar 10 15:36:25 2026...
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 23 10:58:15 2026...

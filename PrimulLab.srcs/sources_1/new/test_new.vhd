@@ -147,6 +147,8 @@ btn=>btn,
 enable=>en
 );
 
+
+
 --Main vontrol unit
 ctrl_inst: entity work.ControlUnit
 port map(
@@ -163,8 +165,8 @@ RegWrite=>RegWrite_ctrl
 );
 
 --Validare cu mpg
-RegWrite_final<=RegWrite_ctrl and en;
-MemWrite_final<=MemWrite_ctrl and en;
+RegWrite_final<=RegWrite_ctrl; --and en;
+MemWrite_final<=MemWrite_ctrl; --and en;
 
 --jump addr computation. opcode(15:13)+addr(12:0)
 jump_addr<="000"&instr(12 downto 0);

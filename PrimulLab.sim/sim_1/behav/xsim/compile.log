@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sources_1/new/test_new.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'test_new'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/sim_1/new/tb_test_new.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tb_test_new'

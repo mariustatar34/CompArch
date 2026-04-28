@@ -72,10 +72,10 @@ end process;
 process(sel)
 begin
 case sel is
-when "00"=>an<="0111";
-when "01"=>an<="1011";
-when "10"=>an<="1101";
-when "11"=>an<="1110";
+when "00"=>an<="1110";
+when "01"=>an<="1101";
+when "10"=>an<="1011";
+when "11"=>an<="0111";
 when others=>an<="1111";
 end case;
 end process;
