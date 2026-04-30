@@ -47,6 +47,9 @@ read_vhdl -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
+read_xdc C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/constrs_1/new/xdcMIPS.xdc
+set_property used_in_implementation false [get_files C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/constrs_1/new/xdcMIPS.xdc]
+
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 

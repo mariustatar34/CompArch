@@ -73,6 +73,7 @@ set rc [catch {
   set_property ip_output_repo C:/Users/Marius_PC/PrimulLab/PrimulLab.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   add_files -quiet C:/Users/Marius_PC/PrimulLab/PrimulLab.runs/synth_1/test_new.dcp
+  read_xdc C:/Users/Marius_PC/PrimulLab/PrimulLab.srcs/constrs_1/new/xdcMIPS.xdc
   link_design -top test_new -part xc7k70tfbv676-1
   close_msg_db -file init_design.pb
 } RESULT]
