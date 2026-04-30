@@ -34,8 +34,8 @@ use ieee.numeric_std.all;
 entity IFU is
   Port (
 clk:in std_logic;
-reset: in std_logic;
-en:in std_logic;
+reset: in std_logic; --pune pc ul inapoi la 0000
+en:in std_logic;  --avem nevoie pentru ca pc ul sa nu se actualizeze la fiecare clock, vine din mpg
 PCSrc:in std_logic;
 Jump:in std_logic;
 BranchAddress:in std_logic_vector(15 downto 0);

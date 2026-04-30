@@ -124,13 +124,14 @@ signal ALURes_MEM:std_logic_vector(15 downto 0);
 --ssd
 signal display_data:std_logic_vector(15 downto 0);
 
+signal reset_en:std_logic;
 begin
 
 --IF unit
 ifu_inst : entity work.IFU
 port map(
     clk           => clk,
-    reset           => sw(4),         -- folosim sw(4) xa reset
+    reset           => reset_en,         -- folosim sw(4) xa reset
     en            => en,
    PCSrc=>pcsrc,
    Jump=>Jump_ctrl,
@@ -145,6 +146,13 @@ port map(
 clk=>clk,
 btn=>btn,
 enable=>en
+);
+
+mpg_reset: MPG
+port map(
+clk=>clk,
+btn=>sw(4),
+enable=>reset_en
 );
 
 
@@ -300,6 +308,7 @@ digit3=>display_data(15 downto 12),
 --when others=>leds<="00000000";
 --end case;
 --end process;
+
 
 
 --LEDS: sw(0)=0 afiseaza control signals, daca e 1 afiseaza ALUOp pe leduri
