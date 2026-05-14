@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_3" LaunchPart="xc7a100ticsg324-1L" LaunchTime="1777536595">
+<GenRun Id="impl_3" LaunchPart="xc7a100ticsg324-1L" LaunchTime="1778739354">
   <File Type="BITSTR-BMM" Name="test_new_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="test_new_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="test_new_timing_summary_init.rpt"/>
@@ -164,9 +164,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-      <Desc>Default settings for Implementation.</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
     <Step Id="init_design"/>
     <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>

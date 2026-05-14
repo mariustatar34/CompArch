@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date         : Thu Apr 30 11:10:35 2026
+| Date         : Thu May 14 09:17:04 2026
 | Host         : Marius running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file test_new_control_sets_placed.rpt
 | Design       : test_new
@@ -44,11 +44,11 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              44 |           11 |
+| No           | No                    | No                     |              44 |           10 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |               0 |            0 |
 | Yes          | No                    | No                     |               0 |            0 |
-| Yes          | No                    | Yes                    |              24 |           13 |
+| Yes          | No                    | Yes                    |              24 |            9 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -59,9 +59,9 @@ Table of Contents
 +----------------+------------------------+------------------+------------------+----------------+
 |  Clock Signal  |      Enable Signal     | Set/Reset Signal | Slice Load Count | Bel Load Count |
 +----------------+------------------------+------------------+------------------+----------------+
-|  clk_IBUF_BUFG | mpg_inst/E[0]          | mpg_reset/AR[0]  |               13 |             24 |
-|  clk_IBUF_BUFG |                        |                  |               11 |             44 |
-|  clk_IBUF_BUFG | ifu_inst/RegWrite_ctrl |                  |                6 |             48 |
+|  clk_IBUF_BUFG | mpg_inst/E[0]          | mpg_reset/AR[0]  |                9 |             24 |
+|  clk_IBUF_BUFG |                        |                  |               10 |             44 |
+|  clk_IBUF_BUFG | ifu_inst/p_0_in        |                  |                6 |             48 |
 |  clk_IBUF_BUFG | ifu_inst/MemWrite_ctrl |                  |               16 |             64 |
 +----------------+------------------------+------------------+------------------+----------------+
 

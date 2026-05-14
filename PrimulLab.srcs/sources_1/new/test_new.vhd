@@ -35,7 +35,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity test_new is
     Port ( clk : in STD_LOGIC;
            btn : in STD_LOGIC;--enable
-           sw:in std_logic_vector(7 downto 0); -- sw(4)=reset, sw(7:5)=SSD select, sw(0)=LED select
+           sw:in std_logic_vector(7 downto 0); -- sw(4)=reset, sw(7:5)=SSD select, sw(0)=lrd select
            leds: out std_logic_vector(7 downto 0);
            cat:out std_logic_vector(6 downto 0);
            an:out std_logic_vector(3 downto 0));

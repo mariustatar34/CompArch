@@ -52,12 +52,13 @@ begin
 process(clk)
 begin
 if rising_edge(clk) then 
-     if wen='1' then reg_mem(to_integer(unsigned(wa)))<=wd;
+     if wen='1' and wa/="000"
+        then reg_mem(to_integer(unsigned(wa)))<=wd;
      end if;
 end if;
 
 end process;
-rd1<=reg_mem(to_integer(unsigned(ra1)));
-rd2<=reg_mem(to_integer(unsigned(ra2)));
+rd1<=x"0000" when ra1="000" else reg_mem(to_integer(unsigned(ra1)));
+rd2<=x"0000" when ra2="000" else reg_mem(to_integer(unsigned(ra2)));
 
 end Behavioral;
