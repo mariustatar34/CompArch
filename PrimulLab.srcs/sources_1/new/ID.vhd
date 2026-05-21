@@ -44,7 +44,9 @@ entity ID is
     RD2: out std_logic_vector(15 downto 0);
     Ext_Imm: out std_logic_vector(15 downto 0);
     func: out std_logic_vector(2 downto 0);
-    sa: out std_logic
+    sa: out std_logic;
+    
+    WA:in std_logic_vector(2 downto 0)
      
     );
 end ID;
@@ -71,7 +73,7 @@ ra2_sig<=Instr(9 downto 7);
             clk => clk,
             ra1 => ra1_sig,
             ra2 => ra2_sig,
-            wa  => wa_sig,
+            wa  => WA,
             wd  => WD,
             wen => RegWrite,
             rd1 => RD1,

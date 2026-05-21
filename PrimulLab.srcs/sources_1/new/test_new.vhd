@@ -89,6 +89,9 @@ signal jump_addr:std_logic_vector(15 downto 0);
 signal branch_addr:std_logic_vector(15 downto 0);
 signal pcsrc:std_logic;
 
+--IF/ID pipeline reg
+signal IF_ID_instr:std_logic_vector(15 downto 0):=(others=>'0');
+signal IF_ID_pc1:std_logic_vector(15 downto 0):=(others=>'0');
 
 --Control
 signal RegDst_ctrl:std_logic;
@@ -112,14 +115,64 @@ signal Ext_Imm:std_logic_vector(15 downto 0);
 signal func:std_logic_vector(2 downto 0);
 signal sa:std_logic;
 signal WD:std_logic_vector(15 downto 0);
+signal WriteAddr:std_logic_vector(2 downto 0);
+
+
+--ID/EX pipeline register
+signal ID_EX_pc1:std_logic_vector(15 downto 0):=(others=>'0');
+signal ID_EX_RD1:std_logic_vector(15 downto 0):=(others=>'0');
+signal ID_EX_RD2:std_logic_vector(15 downto 0):=(others=>'0');
+signal ID_EX_ExtImm: std_logic_vector(15 downto 0):=(others=>'0');
+signal ID_EX_func:std_logic_vector(2 downto 0):=(others=>'0');
+signal ID_EX_sa:std_logic:='0';
+
+signal ID_EX_ALUSrc:std_logic:='0';
+signal ID_EX_ALUOp:std_logic_vector(2 downto 0):=(others=>'0');
+signal ID_EX_Branch:std_logic:='0';
+signal ID_EX_MemWrite:std_logic:='0';
+signal ID_EX_MemtoReg:std_logic:='0';
+signal ID_EX_RegWrite:std_logic:='0';
+
+
 
 --EX
 signal ALURes:std_logic_vector(15 downto 0);
 signal Zero:std_logic;
 
+--EX/MEM pipeline regstr
+signal EX_MEM_ALURes:std_logic_vector(15 downto 0):=(others=>'0');
+signal EX_MEM_RD2:std_logic_vector(15 downto 0):=(others=>'0');
+signal EX_MEM_BranchAddr:std_logic_vector(15 downto 0):=(others=>'0');
+signal EX_MEM_Zero:std_logic:='0';
+signal EX_MEM_Branch:std_logic:='0';
+
+signal EX_MEM_MemWrite:std_logic:='0';
+signal EX_MEM_MemtoReg:std_logic:='0';
+signal EX_MEM_RegWrite:std_logic:='0';
+
+
+
 --MEM
 signal MemData:std_logic_vector(15 downto 0);
 signal ALURes_MEM:std_logic_vector(15 downto 0);
+
+
+--MEM/wb pipeline reg
+signal MEM_WB_MemData:std_logic_vector(15 downto 0):=(others=>'0');
+signal MEM_WB_ALURes:std_logic_vector(15 downto 0):=(others=>'0');
+
+signal MEM_WB_MemtoReg:std_logic:='0';
+signal MEM_WB_RegWrite:std_logic:='0';
+
+
+
+--idk
+signal ID_EX_WriteAddr  : std_logic_vector(2 downto 0) := (others => '0');
+signal EX_MEM_WriteAddr : std_logic_vector(2 downto 0) := (others => '0');
+signal MEM_WB_WriteAddr : std_logic_vector(2 downto 0) := (others => '0');
+signal RF_RegWrite_en  : std_logic;
+signal MEM_MemWrite_en : std_logic;
+
 
 --ssd
 signal display_data:std_logic_vector(15 downto 0);
@@ -135,7 +188,7 @@ port map(
     en            => en,
    PCSrc=>pcsrc,
    Jump=>Jump_ctrl,
-   BranchAddress=>branch_addr,
+   BranchAddress=>EX_MEM_BranchAddr,
    JumpAddress=>jump_addr,
    Instruction=>instr,
    PC_plus_1=>pc_plus_1
@@ -155,12 +208,129 @@ btn=>sw(4),
 enable=>reset_en
 );
 
+--if/id pipeline reg
+process(clk)
+begin
+    if rising_edge(clk) then
+        if reset_en='1' then
+            IF_ID_instr<=(others=>'0');
+            IF_ID_pc1<=(others=>'0');
+        elsif en='1' then
+            IF_ID_instr<=instr;
+            IF_ID_pc1<=pc_plus_1;
+        end if;
+     end if;
+ end process;
+
+
+--id/ex pipeline reg
+process(clk)
+begin
+    if rising_edge(clk) then
+        if reset_en='1' then 
+            ID_EX_pc1<=(others=>'0');
+            ID_EX_RD1<=(others=>'0');
+            ID_EX_RD2<=(others=>'0');
+            ID_EX_ExtImm<=(others=>'0');
+            ID_EX_func<=(others=>'0');
+            ID_EX_sa<='0';
+            
+            ID_EX_WriteAddr<=(others=>'0');
+            
+            ID_EX_ALUSrc<='0';
+            ID_EX_ALUOp<=(others=>'0');
+            ID_EX_Branch<='0';
+            ID_EX_MemWrite<='0';
+            ID_EX_MemtoReg<='0';
+            ID_EX_RegWrite<='0';
+            
+         elsif en='1' then
+            ID_EX_pc1<=IF_ID_pc1;
+            ID_EX_RD1<=RD1;
+            ID_EX_RD2<=RD2;
+            ID_EX_ExtImm<=Ext_imm;
+            ID_EX_func<=func;
+            ID_EX_sa<=sa;
+            
+            ID_EX_WriteAddr<=WriteAddr;
+            
+            ID_EX_ALUSrc<=ALUSrc_ctrl;
+            ID_EX_ALUOp<=ALUOp_ctrl;
+            ID_EX_Branch<=Branch_ctrl;
+            ID_EX_MemWrite<=MemWrite_ctrl;
+            ID_EX_MemtoReg<=MemtoReg_ctrl;
+            ID_EX_RegWrite<=RegWrite_ctrl;
+        end if;
+    end if;
+ end process;
+ 
+ 
+ --ex/mem pipeline reg
+ process(clk)
+ begin
+ 
+    if rising_edge(clk) then
+        if reset_en='1' then
+            EX_MEM_AlURes<=(others=>'0');
+            EX_MEM_RD2<=(others=>'0');
+            EX_MEM_BranchAddr<=(others=>'0');
+            EX_MEM_Zero<='0';
+            EX_MEM_Branch<='0';
+            
+            EX_MEM_WriteAddr<=(others=>'0');
+            
+            EX_MEM_MemWrite<='0';
+            EX_MEM_MemtoReg<='0';
+            EX_MEM_RegWrite<='0';
+         elsif en='1' then
+            EX_MEM_ALURes<=ALURes;
+            EX_MEM_RD2<=ID_EX_RD2;
+            EX_MEM_BranchAddr<=branch_addr;
+            EX_MEM_Zero<=Zero;
+            EX_MEM_Branch<=ID_EX_Branch;
+            
+            EX_MEM_WriteAddr<=ID_EX_WriteAddr;
+            
+            EX_MEM_MemWrite<=ID_EX_MemWrite;
+            EX_MEM_MemtoReg<=ID_EX_MemtoReg;
+            EX_MEM_RegWrite<=ID_EX_RegWrite;
+        end if;
+    end if;
+ 
+ end process;
+
+
+--mem/wb pipeline reg
+process(clk)
+begin
+
+if rising_edge(clk) then 
+    if reset_en='1' then
+        MEM_WB_MemData<=(others=>'0');
+        MEM_WB_ALURes<=(others=>'0');
+        MEM_WB_MemtoReg<='0';
+        MEM_WB_RegWrite<='0';
+        
+        MEM_WB_WriteAddr<=(others=>'0');
+      
+    elsif en='1' then
+        MEM_WB_MemData<=MemData;
+        MEM_WB_ALURes<=ALURes_MEM;
+        
+        MEM_WB_MemtoReg<=EX_MEM_MemtoReg;
+        MEM_WB_RegWrite<=EX_MEM_RegWrite;
+        
+        MEM_WB_WriteAddr<=EX_MEM_WriteAddr;
+     end if;
+end if;
+
+end process;
 
 
 --Main vontrol unit
 ctrl_inst: entity work.ControlUnit
 port map(
-opcode=>instr(15 downto 13),
+opcode=>IF_ID_instr(15 downto 13),
 RegDst=>RegDst_ctrl,
 ExtOp=>ExtOp_ctrl,
 ALUSrc=>ALUSrc_ctrl,
@@ -173,44 +343,48 @@ RegWrite=>RegWrite_ctrl
 );
 
 --Validare cu mpg
-RegWrite_final<=RegWrite_ctrl; --and en;
-MemWrite_final<=MemWrite_ctrl; --and en;
+--RegWrite_final<=RegWrite_ctrl; --and en;
+--MemWrite_final<=MemWrite_ctrl; --and en; la pipeline nu mai e nevoie ca controlul merge in registre
 
 --jump addr computation. opcode(15:13)+addr(12:0)
-jump_addr<="000"&instr(12 downto 0);
+jump_addr<="000"&IF_ID_instr(12 downto 0);
 
 --branch decizion
-pcsrc<=Branch_ctrl and Zero;
+pcsrc<=EX_MEM_Zero and EX_MEM_Branch;
+
+WriteAddr<=IF_ID_instr(9 downto 7) when RegDst_ctrl='0'
+            else IF_ID_instr(6 downto 4);
 
 
 --ID unit
 id_inst:entity work.ID
 port map(
 clk=>clk,
-Instr=>instr,
+Instr=>IF_ID_instr,
 WD=>WD,
-RegWrite=>RegWrite_final,
+RegWrite=>RF_RegWrite_en,
 RegDst=>RegDst_ctrl,
 ExtOp=>ExtOp_ctrl,
 RD1=>RD1,
 RD2=>RD2,
 EXT_Imm=>Ext_Imm,
 func=>func,
-sa=>sa
+sa=>sa,
+WA=>MEM_WB_WriteAddr
 );
 
 
 --EX unitu
 ex_inst:entity work.EX
 port map(
-PCPlus1=>pc_plus_1,
-RD1=>RD1,
-RD2=>RD2,
-ExtImm=>Ext_Imm,
-func=>func,
-sa=>sa,
-ALUSrc=>ALUSrc_ctrl,
-ALUOp=>ALUOp_ctrl,
+PCPlus1=>ID_EX_pc1,
+RD1=>ID_EX_RD1,
+RD2=>ID_EX_RD2,
+ExtImm=>ID_EX_ExtImm,
+func=>ID_EX_func,
+sa=>ID_EX_sa,
+ALUSrc=>ID_EX_ALUSrc,
+ALUOp=>ID_EX_ALUOp,
 ALURes=>ALURes,
 Zero=>Zero,
 BranchAddr=>branch_addr
@@ -220,15 +394,19 @@ BranchAddr=>branch_addr
 mem_inst:entity work.MEM
 port map(
 clk=>clk,
-ALURes_in=>ALURes,
-RD2=>RD2,
-MemWrite=>MemWrite_final,
+ALURes_in=>EX_MEM_ALURes,
+RD2=>EX_MEM_RD2,
+MemWrite=>MEM_MemWrite_en,
 MemData=>MemData,
 ALURes_out=>ALURes_MEM
 );
 
 --WB MUX
-WD<=MemData when MemtoReg_ctrl='1' else ALURes_MEM;
+WD<=MEM_WB_MemData when MEM_WB_MemtoReg='1' else MEM_WB_ALURes;
+
+RF_RegWrite_en  <= MEM_WB_RegWrite and en;
+MEM_MemWrite_en <= EX_MEM_MemWrite and en;
+
 
 --process(clk)
 --begin
@@ -265,11 +443,11 @@ WD<=MemData when MemtoReg_ctrl='1' else ALURes_MEM;
  --ssd display select
  with sw (7 downto 5) select
  display_data<=
-        instr when "000",
+        instr when "000",  --IF_ID_instr
         pc_plus_1 when "001",
-        RD1 when "010",
-        RD2 when "011",
-        Ext_Imm when "100",
+        RD1 when "010",  --ID_EX_RD1
+        RD2 when "011",  --ID_EX_RD2
+        Ext_Imm when "100",  --ID_EX_ExtImm
         ALURes when "101",
         MemData when "110",
         WD when others;
